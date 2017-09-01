@@ -20,4 +20,23 @@ public class ShoppingCart {
         }
     }
 
+    private List<Fruit> fruits;
+    ShoppingCart(List<Fruit> fruits) {
+        this.fruits=fruits;
+    }
+
+    public BigDecimal getTotalBill() {
+        BigDecimal totalBills  = new BigDecimal("0.00");
+        Map<Boolean,Long> partitionFruits =
+                fruits.stream()
+                        .collect(
+                                partitioningBy( fruit -> fruit.equals(Fruit.APPLE),
+                                        counting()));
+
+        long totalApples = partitionFruits.get(true);
+        long totalOranges = partitionFruits.get(false);
+
+        return totalBills.add(getApplesCost(totalApples)).add(getOrangesCost(totalOranges));
+    }
+
    
