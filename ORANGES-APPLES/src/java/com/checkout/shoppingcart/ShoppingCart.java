@@ -39,4 +39,9 @@ public class ShoppingCart {
         return totalBills.add(getApplesCost(totalApples)).add(getOrangesCost(totalOranges));
     }
 
-   
+    private BigDecimal getOrangesCost(long countOranges) {
+        long orangesToDiscount = countOranges / ORANGES_TO_DISCOUNT;
+        long totalOrangesToCharge = (orangesToDiscount*2) + (countOranges%ORANGES_TO_DISCOUNT);
+        return new BigDecimal(Long.valueOf(totalOrangesToCharge)).multiply(Fruit.ORANGE.cost);
+    }
+
